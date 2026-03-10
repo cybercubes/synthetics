@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.1.0"
 
   cloud {
-    organization = "{Enter the name you choose at terraform cloud}"
+    organization = "cyberandcubes"
 
     workspaces {
       name = "grafana-synthetics-main"
