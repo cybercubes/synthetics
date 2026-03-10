@@ -14,10 +14,11 @@ export default function() {
             cookies: {},
         };
 
-        //TODO: change back after testing is done
-        //url = http.url`https://quickpizza.grafana.com/`;
+        
+        url = http.url`https://quickpizza.grafana.com/`;
 
-        url = http.url`https://this-will-fail.example.com`;
+        //uncomment for failure testing
+        //url = http.url`https://this-will-fail.example.com`;
         resp = http.request('GET', url, null, params);
 
         check(resp, { 'status equals 200': (r) => r.status === 200 });
