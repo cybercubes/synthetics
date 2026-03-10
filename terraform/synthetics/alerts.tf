@@ -8,6 +8,10 @@ data "grafana_data_source" "prometheus" {
 
 # Step 5: create a grafan rule group
 resource "grafana_rule_group" "synthetic_monitoring_alerts" {
+  name             = "Synthetic Monitoring Alerts"
+  folder_uid       = grafana_folder.synthetic_monitoring_alerts.uid
+  interval_seconds = 60
+  
   rule {
     name      = "SyntheticCheckFailing"
     condition = "C"
@@ -77,7 +81,7 @@ resource "grafana_rule_group" "synthetic_monitoring_alerts" {
     }
   }
 
-    rule {
+  rule {
     name      = "SyntheticCheckDegraded"
     condition = "C"
 
