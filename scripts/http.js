@@ -14,7 +14,7 @@ export default function() {
             cookies: {},
         };
 
-        url = http.url('https://quickpizza.grafana.com/');
+        url = http.url`https://quickpizza.grafana.com/`;
         resp = http.request('GET', url, null, params);
 
         check(resp, { 'status equals 200': (r) => r.status === 200 });
@@ -28,7 +28,7 @@ export default function() {
             cookies: {},
         };
         
-        url = http.url('https://quickpizza.grafana.com/api/pizza');
+        url = http.url`https://quickpizza.grafana.com/api/pizza`;
         resp = http.request(
             "POST",
             url,
@@ -45,7 +45,7 @@ export default function() {
             cookies: {},
         };
 
-        url = http.url('https://quickpizza.grafana.com/api/ratings');
+        url = http.url`https://quickpizza.grafana.com/api/ratings`;
         resp = http.request('POST', url, `{"pizza_id:24596,"stars":5}`, params);
 
         check(resp, { "status equals 401": (r) => r.status === 401 });
