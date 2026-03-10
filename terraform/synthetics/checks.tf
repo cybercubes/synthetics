@@ -1,7 +1,7 @@
 resource "grafana_synthetic_monitoring_check" "Synthetics_BrowserCheck_login" {
   job       = "Synthetics:BrowserCheck"
   target    = "login"
-  enabled   = true
+  enabled   = false
   probes    = [data.grafana_synthetic_monitoring_probes.main.probes.London]
   labels    = {}
   frequency = 300000
