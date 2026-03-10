@@ -7,7 +7,7 @@ data "grafana_data_source" "prometheus" {
 
 
 # Step 5: create a grafan rule group
-resource "grafana_rule_group" {
+resource "grafana_rule_group" "synthetic_monitoring_alerts" {
   rule {
     name      = "SyntheticCheckFailing"
     condition = "C"
@@ -377,5 +377,27 @@ resource "grafana_contact_point" "synthetic_monitoring_alerts" {
       Labels: {{ range .Labels.SortedPairs }}{{ .Name }}={{ .Value }} {{ end }}
       {{ end }}
     EOT
+  }
+}
+
+# Step 9: Create a notification policy for these alerts
+resource "grafana_notification_policy" "synthetic_monitoring" {
+  group_by      = ["alertname", "grafana_folder"]
+  contact_point = grafana_contact_point.synthetic_monitoring_alerts.name
+
+  group_wait      = "10s"
+  group_interval  = "5m"
+  repeat_interval = "12h"
+
+  policy {
+    matcher {
+      label = "team"
+      match = "="
+      value = "platform"
+    }
+    contact_point   = grafana_contact_point.synthetic_monitoring_alerts.name
+    group_wait      = "10s"
+    group_interval  = "5m"
+    repeat_interval = "4h"
   }
 }
